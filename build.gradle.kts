@@ -16,6 +16,7 @@ java {
 
 dependencies {
     testCompile("org.junit.jupiter:junit-jupiter-api:5.1.0")
+    testCompile("org.junit.jupiter:junit-jupiter-params:5.1.0")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.1.0")
     testCompile("org.assertj:assertj-core:3.9.1")
 }

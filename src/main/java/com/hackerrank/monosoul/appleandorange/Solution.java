@@ -2,6 +2,7 @@ package com.hackerrank.monosoul.appleandorange;
 
 import java.util.*;
 
+import static java.lang.System.out;
 import static java.util.stream.IntStream.of;
 
 /**
@@ -10,15 +11,8 @@ import static java.util.stream.IntStream.of;
 public class Solution {
 
     static void countApplesAndOranges(int s, int t, int a, int b, int[] apples, int[] oranges) {
-        System.out.println(countWins(s ,t , a, apples));
-        System.out.println(countWins(s ,t , b, oranges));
-    }
-
-    private static long countWins(int s, int t, int treePos, final int[] fruits) {
-        return of(fruits).filter(x -> {
-            final int pos = treePos + x;
-            return s <= pos && pos <= t;
-        }).count();
+        out.println(of(apples).map(x -> a+x).filter(x -> s <= x && x <= t).count());
+        out.println(of(oranges).map(x -> b+x).filter(x -> s <= x && x <= t).count());
     }
 
     public static void main(String[] args) {

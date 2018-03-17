@@ -8,9 +8,7 @@ import java.util.*;
 public class Solution {
 
     static String kangaroo(int x1, int v1, int x2, int v2) {
-        final float res = (x1-x2)/(float)(v2 - v1);
-        if ((res < 0) || (res - (int)res != 0)) return "NO";
-        return "YES";
+        return  ((x2 > x1 && v1 <= v2) || ((x1-x2)%(v2 - v1) != 0)) ? "NO" : "YES";
     }
 
     public static void main(String[] args) {

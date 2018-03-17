@@ -25,8 +25,7 @@ public class Solution {
 
         int swapCount = 0;
         for (int i = 0; i < sortedArr.length; i++) {
-            final int value = sortedArr[i];
-            if (swapper.swap(value, i)) swapCount++;
+            if (swapper.swap(sortedArr[i], i)) swapCount++;
         }
 
         return swapCount;

@@ -1,6 +1,5 @@
 package com.hackerrank.monosoul.sherlockandanagrams;
 
-import static java.util.stream.Collectors.toList;
 import java.util.*;
 
 /**
@@ -12,13 +11,13 @@ public class Solution {
         return countSubstrings(s).values().stream().filter(x -> x > 1).mapToInt(x -> x * (x - 1) / 2).sum();
     }
 
-    private static Map<List<Integer>, Integer> countSubstrings(final String s) {
-        final Map<List<Integer>, Integer> result = new HashMap<>();
+    private static Map<Integer, Integer> countSubstrings(final String s) {
+        final Map<Integer, Integer> result = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
             for (int j = 0; j + i < s.length(); j++) {
                 put(
                         result,
-                        s.substring(j, j + i + 1).chars().sorted().boxed().collect(toList())
+                        Arrays.hashCode(s.substring(j, j + i + 1).chars().sorted().toArray())
                 );
             }
         }
@@ -26,7 +25,7 @@ public class Solution {
         return result;
     }
 
-    private static void put(final Map<List<Integer>, Integer> map, final List<Integer> value) {
+    private static void put(final Map<Integer, Integer> map, final Integer value) {
         if (!map.containsKey(value)) {
             map.put(value, 1);
             return;

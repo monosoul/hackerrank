@@ -1,5 +1,7 @@
 package com.hackerrank.monosoul.sherlockandanagrams;
 
+import static java.util.Arrays.copyOfRange;
+import static java.util.Arrays.sort;
 import java.util.*;
 
 /**
@@ -13,11 +15,14 @@ public class Solution {
 
     private static Map<Integer, Integer> countSubstrings(final String s) {
         final Map<Integer, Integer> result = new HashMap<>();
-        for (int i = 0; i < s.length(); i++) {
-            for (int j = 0; j + i < s.length(); j++) {
+        final char[] sArr = s.toCharArray();
+        for (int i = 0; i < sArr.length; i++) {
+            for (int j = 0; j + i < sArr.length; j++) {
+                final char[] substr = copyOfRange(sArr, j, j + i + 1);
+                sort(substr);
                 put(
                         result,
-                        Arrays.hashCode(s.substring(j, j + i + 1).chars().sorted().toArray())
+                        Arrays.hashCode(substr)
                 );
             }
         }

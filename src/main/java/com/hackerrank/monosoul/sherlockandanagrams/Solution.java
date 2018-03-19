@@ -2,7 +2,6 @@ package com.hackerrank.monosoul.sherlockandanagrams;
 
 import static java.util.stream.Collectors.toList;
 import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * https://www.hackerrank.com/challenges/sherlock-and-anagrams/problem
@@ -10,8 +9,7 @@ import java.util.Map.Entry;
 public class Solution {
 
     static int sherlockAndAnagrams(String s) {
-        return countSubstrings(s).entrySet().stream()
-                                 .filter(x -> x.getValue() > 1).mapToInt(Entry::getValue).map(x -> x * (x - 1) / 2).sum();
+        return countSubstrings(s).values().stream().filter(x -> x > 1).mapToInt(x -> x * (x - 1) / 2).sum();
     }
 
     private static Map<List<Integer>, Integer> countSubstrings(final String s) {

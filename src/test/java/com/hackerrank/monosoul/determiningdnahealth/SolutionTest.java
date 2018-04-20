@@ -96,4 +96,69 @@ class SolutionTest {
 
         assertThat(trie.matches("xyz")).isEqualTo(of());
     }
+
+    @Test
+    void testTrie5() {
+        val trie = new Trie();
+        trie.addWord("he");
+        trie.addWord("she");
+        trie.addWord("hers");
+        trie.addWord("her");
+
+        assertThat(trie.matches("he is here")).isEqualTo(
+                of(
+                        "her", 1,
+                        "he", 2
+                )
+        );
+    }
+
+    @Test
+    void testTrie6() {
+        val trie = new Trie();
+        trie.addWord("he");
+        trie.addWord("she");
+        trie.addWord("hers");
+        trie.addWord("her");
+
+        assertThat(trie.matches("this is she")).isEqualTo(
+                of(
+                        "she", 1,
+                        "he", 1
+                )
+        );
+    }
+
+    @Test
+    void testTrie7() {
+        val trie = new Trie();
+        trie.addWord("he");
+        trie.addWord("she");
+        trie.addWord("hers");
+        trie.addWord("her");
+
+        assertThat(trie.matches("this is hers")).isEqualTo(
+                of(
+                        "hers", 1,
+                        "he", 1,
+                        "her", 1
+                )
+        );
+    }
+
+    @Test
+    void testTrie8() {
+        val trie = new Trie();
+        trie.addWord("he");
+        trie.addWord("she");
+        trie.addWord("hers");
+        trie.addWord("her");
+
+        assertThat(trie.matches("her bag is big")).isEqualTo(
+                of(
+                        "he", 1,
+                        "her", 1
+                )
+        );
+    }
 }

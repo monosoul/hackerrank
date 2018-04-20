@@ -20,6 +20,7 @@ dependencies {
     testRuntime("org.junit.jupiter:junit-jupiter-engine:5.1.0")
     testCompile("org.assertj:assertj-core:3.9.1")
     testCompile("org.projectlombok:lombok:1.16.20")
+    testCompile("com.google.guava:guava:24.1-jre")
 }
 
 repositories {

@@ -1,10 +1,8 @@
 package com.hackerrank.monosoul.determiningdnahealth;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.TreeMap;
 
-import static java.util.Optional.ofNullable;
 
 public class TrieNode {
     private boolean isWord = false;

@@ -12,7 +12,7 @@ public class Trie {
         this.root = new TrieNode();
     }
 
-    public void addWord(final String word) {
+    public Trie addWord(final String word) {
         TrieNode curNode = root;
 
         final int last = word.length() - 1;
@@ -24,6 +24,14 @@ public class Trie {
                 curNode.setWord(true);
             }
         }
+
+        return this;
+    }
+
+    public Trie addWords(final Iterable<String> words) {
+        words.forEach(this::addWord);
+
+        return this;
     }
 
     public boolean containsWord(final String word) {
@@ -79,6 +87,7 @@ public class Trie {
 
     private TrieNode goTo(final TrieNode node, final char goToChar) {
         final TrieNode goToNode = node.getChild(goToChar);
+        if (node.isRoot() && root.getChild(goToChar) == null) return root;
         if (goToNode == null || !goToNode.isWord()) {
             return goTo(node.getSuffix(), goToChar);
         }

@@ -95,7 +95,7 @@ public class Trie {
     private TrieNode goTo(final TrieNode node, final char goToChar) {
         final TrieNode goToNode = node.getChild(goToChar);
         if (node.isRoot() && root.getChild(goToChar) == null) return root;
-        if (goToNode == null || !goToNode.isWord()) {
+        if (goToNode == null) {
             return goTo(node.getSuffix(), goToChar);
         }
         return goToNode;

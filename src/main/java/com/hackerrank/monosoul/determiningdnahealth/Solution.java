@@ -1,8 +1,6 @@
 package com.hackerrank.monosoul.determiningdnahealth;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static java.util.Arrays.stream;
 import static java.util.Objects.hash;
@@ -13,26 +11,28 @@ import static java.util.stream.Collectors.joining;
  */
 public class Solution {
 
-    public static int[] determineDNAHealth(final String[] genes, final int[] health, final DNAStrand[] strands) {
-        final Map<String, List<Integer>> reducedGenes = reduceGenes(genes, health);
-        final Trie trie = new Trie().addWords(reducedGenes.keySet());
+    public static int[] determineDNAHealth(final String[] genes, final Map<String, List<Integer>> genesHealth, final DNAStrand[] strands) {
+        final Trie trie = new Trie().addWords(genesHealth.keySet());
         Integer min = null;
         Integer max = null;
 
         for (final DNAStrand strand : strands) {
+            final Map<String, Integer> matches = trie.matches(strand.getDna());
             int strHealth = 0;
             final Set<String> calculated = new HashSet<>();
             for (int i = strand.getFirst(); i <= strand.getLast(); i++) {
-                calculated.add(genes[i]);
-            }
-            final Map<String, Integer> matches = trie.matches(strand.getDna());
-            for (final String gene : calculated) {
-                final List<Integer> healthes = reducedGenes.get(gene);
+                final String gene = genes[i];
+                if (calculated.contains(gene)) continue;
+
                 final Integer matchAmount = matches.get(gene);
                 if (matchAmount == null) continue;
+
+                final List<Integer> healthes = genesHealth.get(gene);
                 for (final Integer geneHealth : healthes) {
                     strHealth += matchAmount * geneHealth;
                 }
+
+                calculated.add(gene);
             }
 
             if (min == null || strHealth < min) min = strHealth;
@@ -42,45 +42,23 @@ public class Solution {
         return new int[]{min, max};
     }
 
-    private static Map<String, List<Integer>> reduceGenes(final String[] genes, final int[] health) {
-        final Map<String, List<Integer>> result = new HashMap<>();
-        for (int i = 0; i < health.length; i++) {
-            put(result, genes[i], health[i]);
-        }
-
-        return result;
-    }
-
-    private static void put(final Map<String, List<Integer>> map, final String gene, final int health) {
+    public static void put(final Map<String, List<Integer>> map, final String gene, final int health) {
         if (!map.containsKey(gene)) {
             map.put(gene, new ArrayList<>());
         }
         map.get(gene).add(health);
     }
 
-    private static int countMatches(final Pattern pattern, final CharSequence input) {
-        final Matcher matcher = pattern.matcher(input);
-        int start = 0;
-        int count = 0;
-
-        while (matcher.find(start)) {
-            start = matcher.start() + 1;
-            count++;
-        }
-
-        return count;
-    }
-
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         int n = in.nextInt();
-        String[] genes = new String[n];
+        final Map<String, List<Integer>> genesHealth = new TreeMap<>();
+        final String[] genes = new String[n];
         for (int genes_i = 0; genes_i < n; genes_i++) {
             genes[genes_i] = in.next();
         }
-        int[] health = new int[n];
         for (int health_i = 0; health_i < n; health_i++) {
-            health[health_i] = in.nextInt();
+            put(genesHealth, genes[health_i], in.nextInt());
         }
         int s = in.nextInt();
         final DNAStrand[] strands = new DNAStrand[s];
@@ -89,7 +67,8 @@ public class Solution {
         }
         in.close();
         System.out.println(
-                stream(determineDNAHealth(genes, health, strands)).mapToObj(String::valueOf).collect(joining(" "))
+                stream(determineDNAHealth(genes, genesHealth, strands))
+                        .mapToObj(String::valueOf).collect(joining(" "))
         );
     }
 

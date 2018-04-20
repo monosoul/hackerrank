@@ -62,7 +62,7 @@ public class Trie {
 
     public Map<String, Integer> matches(final String word) {
         TrieNode curNode = root;
-        final Map<String, Integer> result = new HashMap<>();
+        final Map<String, Integer> result = new TreeMap<>();
 
         final int last = word.length() - 1;
         for (int i = 0; i <= last; i++) {

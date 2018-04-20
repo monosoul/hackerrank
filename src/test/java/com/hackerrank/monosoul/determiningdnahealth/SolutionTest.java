@@ -1,19 +1,35 @@
 package com.hackerrank.monosoul.determiningdnahealth;
 
+import com.google.common.collect.ImmutableMap;
 import com.hackerrank.monosoul.determiningdnahealth.Solution.DNAStrand;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
+import java.util.*;
+import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.Map.Entry;
+
 import static com.google.common.collect.ImmutableMap.of;
+import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SolutionTest {
 
+    private static Entry<String[], Map<String, List<Integer>>> build(final String[] genes, final int[] health) {
+        val map = new HashMap<String, List<Integer>>();
+        for (int i = 0; i < genes.length; i++) {
+            Solution.put(map, genes[i], health[i]);
+        }
+
+        return new SimpleImmutableEntry<>(genes, map);
+    }
+
     @Test
     void determineDNAHealth() {
+        val entry = build(new String[]{"a", "b", "c", "aa", "d", "b"}, new int[]{1, 2, 3, 4, 5, 6});
         val actual = Solution.determineDNAHealth(
-                new String[]{"a", "b", "c", "aa", "d", "b"},
-                new int[]{1, 2, 3, 4, 5, 6},
+                entry.getKey(),
+                entry.getValue(),
                 new DNAStrand[]{
                         new DNAStrand(1, 5, "caaab"),
                         new DNAStrand(0, 4, "xyz"),

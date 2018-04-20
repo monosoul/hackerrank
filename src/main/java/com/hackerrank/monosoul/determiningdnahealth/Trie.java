@@ -2,6 +2,7 @@ package com.hackerrank.monosoul.determiningdnahealth;
 
 import java.util.*;
 
+import static java.util.Arrays.stream;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
@@ -24,6 +25,12 @@ public class Trie {
                 curNode.setWord(true);
             }
         }
+
+        return this;
+    }
+
+    public Trie addWords(final String... word) {
+        stream(word).forEach(this::addWord);
 
         return this;
     }

@@ -1,14 +1,11 @@
 package com.hackerrank.monosoul.determiningdnahealth;
 
 import java.util.*;
-import java.util.AbstractMap.SimpleEntry;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.Arrays.stream;
 import static java.util.Objects.hash;
-import static java.util.regex.Pattern.compile;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -17,7 +14,8 @@ import static java.util.stream.Collectors.joining;
 public class Solution {
 
     public static int[] determineDNAHealth(final String[] genes, final int[] health, final DNAStrand[] strands) {
-        final Map<String, Entry<Pattern, List<Integer>>> reducedGenes = reduceGenes(genes, health);
+        final Map<String, List<Integer>> reducedGenes = reduceGenes(genes, health);
+        final Trie trie = new Trie().addWords(reducedGenes.keySet());
         Integer min = null;
         Integer max = null;
 
@@ -25,14 +23,15 @@ public class Solution {
             int strHealth = 0;
             final Set<String> calculated = new HashSet<>();
             for (int i = strand.getFirst(); i <= strand.getLast(); i++) {
-                final String gene = genes[i];
-                if (!calculated.contains(gene)) {
-                    final Entry<Pattern, List<Integer>> entry = reducedGenes.get(gene);
-                    final int matches = countMatches(entry.getKey(), strand.getDna());
-                    for (final Integer geneHealth : entry.getValue()) {
-                        strHealth += matches * geneHealth;
-                    }
-                    calculated.add(gene);
+                calculated.add(genes[i]);
+            }
+            final Map<String, Integer> matches = trie.matches(strand.getDna());
+            for (final String gene : calculated) {
+                final List<Integer> healthes = reducedGenes.get(gene);
+                final Integer matchAmount = matches.get(gene);
+                if (matchAmount == null) continue;
+                for (final Integer geneHealth : healthes) {
+                    strHealth += matchAmount * geneHealth;
                 }
             }
 
@@ -43,8 +42,8 @@ public class Solution {
         return new int[]{min, max};
     }
 
-    private static Map<String, Entry<Pattern, List<Integer>>> reduceGenes(final String[] genes, final int[] health) {
-        final Map<String, Entry<Pattern, List<Integer>>> result = new HashMap<>();
+    private static Map<String, List<Integer>> reduceGenes(final String[] genes, final int[] health) {
+        final Map<String, List<Integer>> result = new HashMap<>();
         for (int i = 0; i < health.length; i++) {
             put(result, genes[i], health[i]);
         }
@@ -52,11 +51,11 @@ public class Solution {
         return result;
     }
 
-    private static void put(final Map<String, Entry<Pattern, List<Integer>>> map, final String gene, final int health) {
+    private static void put(final Map<String, List<Integer>> map, final String gene, final int health) {
         if (!map.containsKey(gene)) {
-            map.put(gene, new SimpleEntry<>(compile(gene), new ArrayList<>()));
+            map.put(gene, new ArrayList<>());
         }
-        map.get(gene).getValue().add(health);
+        map.get(gene).add(health);
     }
 
     private static int countMatches(final Pattern pattern, final CharSequence input) {

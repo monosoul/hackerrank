@@ -4,28 +4,37 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 
-import static java.util.Optional.empty;
-import static java.util.Optional.of;
+import static java.util.Optional.ofNullable;
 
 public class TrieNode {
     private boolean isWord = false;
     private final boolean isRoot;
     private final Character character;
     private final Map<Character, TrieNode> children = new TreeMap<>();
+    private final CharSequence matchingString;
+    private final TrieNode parent;
+    private final TrieNode root;
+
     private TrieNode suffix = null;
     private TrieNode dictSuffix = null;
-    private final TrieNode parent;
+    private boolean dictSuffixCalculated = false;
 
     TrieNode() {
         this.isRoot = true;
         this.character = null;
         this.parent = null;
+        this.matchingString = null;
+        this.root = this;
     }
 
-    private TrieNode(final Character character, final TrieNode parent) {
+    private TrieNode(
+            final CharSequence matchingString, final Character character, final TrieNode root, final TrieNode parent
+    ) {
         this.isRoot = false;
         this.character = character;
         this.parent = parent;
+        this.matchingString = matchingString;
+        this.root = root;
     }
 
     public boolean isWord() {
@@ -64,7 +73,6 @@ public class TrieNode {
 
         suffix = parent.getSuffix().getChild(character);
         if (suffix == null) {
-            TrieNode root = getRoot(this);
             suffix = root.getChild(character);
             if (suffix == null) {
                 suffix = root;
@@ -74,36 +82,39 @@ public class TrieNode {
         return suffix;
     }
 
-    public Optional<TrieNode> getDictSuffix() {
+    public TrieNode getDictSuffix() {
+        if (dictSuffixCalculated) return dictSuffix;
+
         TrieNode suffix = getSuffix();
-        while(!suffix.isRoot() && !suffix.isWord()) {
+        while (!suffix.isRoot() && !suffix.isWord()) {
             suffix = suffix.getSuffix();
         }
 
         if (suffix.isWord()) {
-            return of(suffix);
+            dictSuffix = suffix;
+        } else {
+            dictSuffix = root;
         }
+        dictSuffixCalculated = true;
 
-        return empty();
+        return dictSuffix;
     }
 
-    private TrieNode getRoot(final TrieNode node) {
-        TrieNode curNode = node;
-        while(!curNode.isRoot()) {
-            curNode = curNode.parent;
-        }
-
-        return curNode;
+    public CharSequence getMatchingString() {
+        return matchingString;
     }
 
     public TrieNode getParent() {
         return parent;
     }
 
-    public TrieNode createOrGetChild(final Character character, final TrieNode parent) {
+    public TrieNode createOrGetChild(final Character character) {
         TrieNode node = children.get(character);
+        final StringBuilder sb = (matchingString == null ? new StringBuilder() : new StringBuilder(matchingString))
+                .append(character);
+
         if (node == null) {
-            node = new TrieNode(character, parent);
+            node = new TrieNode(sb, character, root, this);
             children.put(character, node);
         }
 

@@ -3,9 +3,7 @@ package com.hackerrank.monosoul.ctciarrayleftrotation;
 import java.io.*;
 import java.util.*;
 
-import static java.util.Arrays.copyOfRange;
-import static java.util.Arrays.stream;
-import static java.util.stream.IntStream.concat;
+import static java.lang.System.arraycopy;
 
 /**
  * https://www.hackerrank.com/challenges/ctci-array-left-rotation/problem
@@ -14,10 +12,13 @@ public class Solution {
 
     // Complete the rotLeft function below.
     static int[] rotLeft(int[] a, int d) {
-        final int[] left = copyOfRange(a, d, a.length);
-        final int[] right = copyOfRange(a, 0, d);
+        final int split = a.length - d;
+        final int[] target = new int[a.length];
 
-        return concat(stream(left), stream(right)).toArray();
+        arraycopy(a, d, target, 0, split);
+        arraycopy(a, 0, target, split, d);
+
+        return target;
     }
 
     private static final Scanner scanner = new Scanner(System.in);

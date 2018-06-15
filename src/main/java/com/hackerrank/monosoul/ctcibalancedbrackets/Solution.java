@@ -8,27 +8,28 @@ import java.util.*;
 public class Solution {
 
     private static final Scanner SCANNER = new Scanner(System.in);
+    private static final Map<Character, Character> BRACKET_PAIRS = new HashMap<>();
+
+    static {
+        BRACKET_PAIRS.put('(', ')');
+        BRACKET_PAIRS.put('{', '}');
+        BRACKET_PAIRS.put('[', ']');
+    }
 
     static Boolean isBalanced(final String bracketString) {
         final Deque<Character> stack = new ArrayDeque<>();
 
         for (final char c : bracketString.toCharArray()) {
-            switch (c) {
-                case '{':
-                    stack.add('}');
-                    break;
-                case '(':
-                    stack.add(')');
-                    break;
-                case '[':
-                    stack.add(']');
-                    break;
-                default:
-                    if (stack.isEmpty() || !stack.getLast().equals(c)) {
-                        return false;
-                    }
-                    stack.removeLast();
+            if (BRACKET_PAIRS.containsKey(c)) {
+                stack.add(c);
+                continue;
             }
+
+            if (stack.isEmpty() || !BRACKET_PAIRS.get(stack.peekLast()).equals(c)) {
+                return false;
+            }
+
+            stack.removeLast();
         }
 
         return stack.isEmpty();

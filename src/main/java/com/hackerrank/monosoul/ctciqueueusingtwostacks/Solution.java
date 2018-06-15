@@ -34,19 +34,21 @@ public class Solution {
         }
 
         T dequeue() {
-            if (dequeueStack.isEmpty()) {
-                moveItems(enqueueStack, dequeueStack);
-            }
+            enqueToDequeue();
 
             return dequeueStack.pop();
         }
 
         T peek() {
+            enqueToDequeue();
+
+            return dequeueStack.peek();
+        }
+
+        private void enqueToDequeue() {
             if (dequeueStack.isEmpty()) {
                 moveItems(enqueueStack, dequeueStack);
             }
-
-            return dequeueStack.peek();
         }
 
         private void moveItems(final Deque<T> from, final Deque<T> to) {

@@ -17,6 +17,8 @@ public class Solution {
     }
 
     static Boolean isBalanced(final String bracketString) {
+        if ((bracketString.length() & 1) == 1) return false;
+
         final Deque<Character> stack = new ArrayDeque<>();
 
         for (final char c : bracketString.toCharArray()) {

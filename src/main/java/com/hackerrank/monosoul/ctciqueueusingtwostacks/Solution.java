@@ -1,10 +1,6 @@
 package com.hackerrank.monosoul.ctciqueueusingtwostacks;
 
-import java.io.*;
 import java.util.*;
-import java.text.*;
-import java.math.*;
-import java.util.regex.*;
 
 /**
  * https://www.hackerrank.com/challenges/ctci-queue-using-two-stacks/problem
@@ -27,5 +23,36 @@ public class Solution {
             }
         }
         scan.close();
+    }
+
+    static class MyQueue<T> {
+        private final Deque<T> enqueueStack = new ArrayDeque<>();
+        private final Deque<T> dequeueStack = new ArrayDeque<>();
+
+        void enqueue(final T item) {
+            enqueueStack.push(item);
+        }
+
+        T dequeue() {
+            if (dequeueStack.isEmpty()) {
+                moveItems(enqueueStack, dequeueStack);
+            }
+
+            return dequeueStack.pop();
+        }
+
+        T peek() {
+            if (dequeueStack.isEmpty()) {
+                moveItems(enqueueStack, dequeueStack);
+            }
+
+            return dequeueStack.peek();
+        }
+
+        private void moveItems(final Deque<T> from, final Deque<T> to) {
+            while(!from.isEmpty()) {
+                to.push(from.pop());
+            }
+        }
     }
 }

@@ -75,4 +75,16 @@ class SolutionTest {
 
         assertThat(checkBST(root)).isFalse();
     }
+
+    @Test
+    void checkBST5() {
+        assertThat(checkBST(null)).isTrue();
+    }
+
+    @Test
+    void checkBST6() {
+        val root = new Node(3);
+
+        assertThat(checkBST(root)).isTrue();
+    }
 }

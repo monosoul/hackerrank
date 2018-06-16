@@ -1,4 +1,4 @@
-package com.hackerrank.monosoul.ctcilinkedlistcycle;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctcilinkedlistcycle;
 
 import java.util.HashSet;
 import java.util.Set;

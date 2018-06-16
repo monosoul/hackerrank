@@ -1,6 +1,6 @@
-package com.hackerrank.monosoul.ctciransomnote;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctciransomnote;
 
-import static com.hackerrank.monosoul.ctciransomnote.Solution.checkMagazine;
+import static com.hackerrank.monosoul.crackingthecodinginterview.ctciransomnote.Solution.checkMagazine;
 import static org.assertj.core.api.Assertions.assertThat;
 import lombok.val;
 import org.junit.jupiter.api.Test;

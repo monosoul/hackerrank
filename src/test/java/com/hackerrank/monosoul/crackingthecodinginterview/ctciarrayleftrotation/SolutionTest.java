@@ -1,8 +1,8 @@
-package com.hackerrank.monosoul.ctciarrayleftrotation;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctciarrayleftrotation;
 
 import org.junit.jupiter.api.Test;
 
-import static com.hackerrank.monosoul.ctciarrayleftrotation.Solution.rotLeft;
+import static com.hackerrank.monosoul.crackingthecodinginterview.ctciarrayleftrotation.Solution.rotLeft;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SolutionTest {

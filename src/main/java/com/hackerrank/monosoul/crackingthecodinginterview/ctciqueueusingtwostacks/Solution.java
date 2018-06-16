@@ -1,4 +1,4 @@
-package com.hackerrank.monosoul.ctciqueueusingtwostacks;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctciqueueusingtwostacks;
 
 import java.util.*;
 

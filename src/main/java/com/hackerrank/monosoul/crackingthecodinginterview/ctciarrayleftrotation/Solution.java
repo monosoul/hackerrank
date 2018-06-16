@@ -1,4 +1,4 @@
-package com.hackerrank.monosoul.ctciarrayleftrotation;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctciarrayleftrotation;
 
 import java.io.*;
 import java.util.*;

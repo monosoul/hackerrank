@@ -1,4 +1,4 @@
-package com.hackerrank.monosoul.ctcibalancedbrackets;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctcibalancedbrackets;
 
 import java.util.*;
 

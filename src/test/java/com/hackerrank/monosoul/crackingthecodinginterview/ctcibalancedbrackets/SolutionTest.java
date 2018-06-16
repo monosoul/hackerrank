@@ -1,8 +1,8 @@
-package com.hackerrank.monosoul.ctcibalancedbrackets;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctcibalancedbrackets;
 
-import static com.hackerrank.monosoul.ctcibalancedbrackets.Solution.isBalanced;
+import static com.hackerrank.monosoul.crackingthecodinginterview.ctcibalancedbrackets.Solution.isBalanced;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.Test;
 
 class SolutionTest {

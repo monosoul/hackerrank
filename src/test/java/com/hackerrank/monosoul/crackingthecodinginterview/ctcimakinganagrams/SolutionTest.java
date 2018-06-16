@@ -1,9 +1,9 @@
-package com.hackerrank.monosoul.ctcimakinganagrams;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctcimakinganagrams;
 
 import org.junit.jupiter.api.Test;
 
-import static com.hackerrank.monosoul.ctcimakinganagrams.Solution.countDeletions;
-import static com.hackerrank.monosoul.ctcimakinganagrams.Solution.countSameChars;
+import static com.hackerrank.monosoul.crackingthecodinginterview.ctcimakinganagrams.Solution.countDeletions;
+import static com.hackerrank.monosoul.crackingthecodinginterview.ctcimakinganagrams.Solution.countSameChars;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class SolutionTest {

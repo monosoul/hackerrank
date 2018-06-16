@@ -1,4 +1,4 @@
-package com.hackerrank.monosoul.ctcimakinganagrams;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctcimakinganagrams;
 
 import java.util.*;
 import java.util.Map.Entry;

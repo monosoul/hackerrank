@@ -1,12 +1,11 @@
-package com.hackerrank.monosoul.ctcilinkedlistcycle;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctcilinkedlistcycle;
 
-import com.hackerrank.monosoul.ctcilinkedlistcycle.Solution.Node;
+import com.hackerrank.monosoul.crackingthecodinginterview.ctcilinkedlistcycle.Solution.Node;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 
-import static com.hackerrank.monosoul.ctcilinkedlistcycle.Solution.hasCycle;
+import static com.hackerrank.monosoul.crackingthecodinginterview.ctcilinkedlistcycle.Solution.hasCycle;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class SolutionTest {
 

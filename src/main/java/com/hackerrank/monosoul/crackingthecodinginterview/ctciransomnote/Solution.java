@@ -1,4 +1,4 @@
-package com.hackerrank.monosoul.ctciransomnote;
+package com.hackerrank.monosoul.crackingthecodinginterview.ctciransomnote;
 
 import java.util.*;
 import java.util.Map.Entry;

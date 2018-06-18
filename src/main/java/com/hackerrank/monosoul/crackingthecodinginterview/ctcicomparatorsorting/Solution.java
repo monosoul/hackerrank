@@ -1,6 +1,7 @@
 package com.hackerrank.monosoul.crackingthecodinginterview.ctcicomparatorsorting;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 /**
@@ -33,6 +34,14 @@ class Solution {
         Player(String name, int score){
             this.name = name;
             this.score = score;
+        }
+    }
+
+    static class Checker implements Comparator<Player>{
+
+        @Override
+        public int compare(final Player o1, final Player o2) {
+            return 100 * Integer.compare(o2.score, o1.score) + o1.name.compareTo(o2.name);
         }
     }
 }

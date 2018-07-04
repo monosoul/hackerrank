@@ -1,7 +1,6 @@
 package com.hackerrank.monosoul.crush;
 
 import static java.lang.Integer.parseInt;
-import static java.util.Arrays.stream;
 import java.io.*;
 import java.util.*;
 
@@ -17,12 +16,22 @@ public class Solution {
         final long[] arr = new long[n];
 
         for (final Query query : queries) {
-            for (int j = query.getLeft(); j <= query.getRight(); j++) {
-                arr[j - 1] = arr[j - 1] + query.getValue();
+            arr[query.getLeft()-1] += query.getValue();
+
+            if (query.getRight() < n) {
+                arr[query.getRight()] -= query.getValue();
             }
         }
 
-        return stream(arr).max().orElse(0);
+        long max = 0;
+        long temp = 0;
+
+        for (int i = 0; i < n; i++) {
+            temp += arr[i];
+            if (temp > max) max = temp;
+        }
+
+        return max;
     }
 
     public static void main(String[] args) throws IOException {
